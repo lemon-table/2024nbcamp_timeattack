@@ -1,73 +1,37 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# ⏲ 내일배움캠프 타임어택 해커톤
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📌 프로젝트 개요
+E-Commerce 의 기본 제품 요소인 로그인, 회원가입 기능 개발.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### 🎯 프로젝트 목표
+  1. **프로젝트 설정:**
+      - Nest.js 프로젝트 생성
+      - 선호하는 ORM 설정 및 모델 작성
+      - JWT 모듈 설치 및 설정
+  2. **회원가입 API 구현:**
+      - 사용자 모델 정의 및 데이터베이스에 저장
+      - 유효성 검사를 통한 데이터 입력 확인
+          - 이메일, 비밀번호, 이름, 전화번호 유효성 검증
+              - 회원가입 버튼 클릭시 검증
+              - 올바르지 않으면 오류를 표시
+      - 비밀번호 암호화
+  3. **로그인 API 구현:**
+      - 이메일 유효성 검사
+          - 로그인 버튼 클릭 시 검사
+      - 이메일을 찾을 수 없음 오류 처리
+      - 이메일-비밀번호 불일치 오류 처리
+      - JWT 토큰 생성 및 반환
+      - Passport를 사용하여 로그인 인증 처리
+  4. **인증 미들웨어 구현:**
+      - JWT 토큰을 사용하여 인증을 처리하는 미들웨어 작성
+      - `accessToken` 및 `refreshToken` 처리 구현
+  5. **에러 핸들링 및 보안 강화:**
+      - 에러 핸들링을 위한 미들웨어 구현
+      - 보안 측면에서의 고려 사항 추가 (예: CSRF, 보안 헤더 등)
 
-## Description
+## 📌 API 명세서
+[2024nbcamp_timeattack API 명세서](https://docs.google.com/spreadsheets/d/1r_3E0aF1DngUuPHyYPowZjJmNZiI7vDTn6ZFSSakRdQ/edit?usp=sharing)
+## 📌 ERD
+![image](https://github.com/lemon-table/2024nbcamp_timeattack/assets/147114778/19493c30-fe96-4094-be4b-f678795606f2)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+## 📌 구현하며 중요하게 생각했던 점
