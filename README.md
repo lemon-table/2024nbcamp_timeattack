@@ -30,8 +30,7 @@ E-Commerce 의 기본 제품 요소인 로그인, 회원가입 기능 개발.
       - 보안 측면에서의 고려 사항 추가 (예: CSRF, 보안 헤더 등)
 
 ## 📌 API 명세서
-[2024nbcamp_timeattack API 명세서](https://docs.google.com/spreadsheets/d/1r_3E0aF1DngUuPHyYPowZjJmNZiI7vDTn6ZFSSakRdQ/edit?usp=sharing)
-swagger url:http://localhost:3000/api#
+[2024nbcamp_timeattack API 명세서](https://docs.google.com/spreadsheets/d/1r_3E0aF1DngUuPHyYPowZjJmNZiI7vDTn6ZFSSakRdQ/edit?usp=sharing) / swagger url:http://localhost:3000/api#
 
 ## 📌 ERD
 ![image](https://github.com/lemon-table/2024nbcamp_timeattack/assets/147114778/19493c30-fe96-4094-be4b-f678795606f2)
