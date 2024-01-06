@@ -1,9 +1,13 @@
+import Joi from 'joi';
 import { compare, hash } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { ConflictException, Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { SignUpDto } from './dto/signup.dto';
+import { SignInDto } from './dto/signin.dto';
+import { ConfigService } from '@nestjs/config';
+import bcrypt from 'bcrypt';
 
 import { User } from './entities/user.entity';
 
@@ -13,6 +17,7 @@ export class UserService {
         @InjectRepository(User)
             private userRepository: Repository<User>,
         private readonly jwtService: JwtService,
+        private readonly configService: ConfigService,
       ) {}
 
       async signUp(signupDto:SignUpDto) {
@@ -62,14 +67,77 @@ export class UserService {
         }
     
         const payload = { email, sub: user.id };
+
+        const access_token = this.getAccessToken(payload);
+        const refresh_token_token = this.getAccessToken(payload);
+
         return {
           "message": "로그인에 성공했습니다.",
           "success": true,
-          "data":{access_token: this.jwtService.sign(payload,{ expiresIn: '10m' })}
+          "data":{access_token,refresh_token_token}
         };
       }
 
+      getAccessToken(payload:any){
+        return this.jwtService.sign(payload,
+          { 
+            secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
+            expiresIn: this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
+          });
+      }
+
+      async getetRefreshToken(payload:any){
+        return this.jwtService.sign(payload,{
+            secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
+            expiresIn: this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
+          })
+      }
+      
+      async verifyAccessToken(accessToken: string) {
+        try {
+            const payload = await this.jwtService.verify(accessToken);
+
+            console.log(payload);
+
+            return { success: true, id: payload.id };
+        } catch (error) {
+            const payload = await this.jwtService.verify(accessToken, {
+                ignoreExpiration: true,
+            });
+
+            return { success: false, message: error.message, id: payload.id };
+        }
+    }
+
+    async verifyRefreshToken(refreshToken: string) {
+        try {
+            const payload = await this.jwtService.verify(refreshToken);
+
+            return { success: true };
+        } catch (error) {
+            return { success: false, message: error.message };
+        }
+    }
+      
+
       async findByEmail(email: string) {
         return await this.userRepository.findOneBy({ email });
+      }
+
+      async validateUser({ email, password }: SignInDto) {
+        const user = await this.userRepository.findOne({
+          where: { email },
+          select: { id: true, password: true },
+        });
+        const isPasswordMatched = bcrypt.compareSync(
+          password,
+          user?.password ?? '',
+        );
+    
+        if (!user || !isPasswordMatched) {
+          return null;
+        }
+    
+        return { id: user.id };
       }
 }
