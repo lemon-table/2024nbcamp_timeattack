@@ -1,7 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignUpDto } from './dto/signup.dto';
 import { SignInDto } from './dto/signin.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtRefreshAuthGuard } from 'src/auth/guards/jwt-refresh-auth.guard';
 
 @Controller('users')
 export class UserController {
@@ -22,6 +25,8 @@ export class UserController {
    * @param signinDto 
    * @returns 
    */
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard('local'))
   @Post('signin')
   async signIn(@Body() signinDto: SignInDto) {
     return await this.userService.signIn(signinDto.email, signinDto.password);
